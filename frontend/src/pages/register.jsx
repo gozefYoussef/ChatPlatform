@@ -1,21 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom"
+import {httpRegisterRequest} from '../Hooks/request'
 
 const Register = () => {
-    const [loginEmail, setLoginEmail] = useState('');
-    const [loginPassword,setLoginPassword] = useState('');
+    const [registerEmail, setRegisterEmail] = useState('');
+    const [registerPassword,setRegisterPassword] = useState('');
 
-    const onEmailChange = (e) =>{
-        setLoginEmail(e.target.value);
-    }
-
-    const onPasswordChange = (e) =>{
-        setLoginPassword(e.target.value);
-    }
-
-    const onSubmitClick = () =>(
-        alert(`logging in ${loginEmail} with password ${loginPassword}`)
-    )
+    const onEmailChange = (e) =>{setRegisterEmail(e.target.value);}
+    const onPasswordChange = (e) =>{setRegisterPassword(e.target.value);}
+    const onSubmitClick = () =>(httpRegisterRequest(registerEmail,registerPassword))
   return (
   <div className="flex justify-center items-center h-screen">
     <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

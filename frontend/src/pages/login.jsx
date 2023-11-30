@@ -1,21 +1,15 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import {httploginRequest} from '../Hooks/request'
 
 const Login = () => { 
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword,setLoginPassword] = useState('');
 
-    const onEmailChange = (e) =>{
-        setLoginEmail(e.target.value);
-    }
+    const onEmailChange = (e) =>{setLoginEmail(e.target.value);}
+    const onPasswordChange = (e) =>{setLoginPassword(e.target.value);}
+    const onSubmitClick = () =>(httploginRequest(loginEmail,loginPassword))
 
-    const onPasswordChange = (e) =>{
-        setLoginPassword(e.target.value);
-    }
-
-    const onSubmitClick = () =>(
-        alert(`logging in ${loginEmail} with password ${loginPassword}`)
-    )
   return (
     <div className="flex justify-center items-center h-screen">
     <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
