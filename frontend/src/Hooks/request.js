@@ -1,5 +1,5 @@
-export function httploginRequest({loginEmail,loginPassword}){
-    fetch(`http://localhost:8000/login`,{
+export async function httploginRequest({loginEmail,loginPassword}){
+    await fetch(`http://localhost:8000/login`,{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
@@ -9,8 +9,8 @@ export function httploginRequest({loginEmail,loginPassword}){
     })
 }
 
-export function httpRegisterRequest({registerEmail,registerPassword}){ 
-    fetch(`http://localhost:8000/register`,{
+export async function httpRegisterRequest({registerEmail,registerPassword}){ 
+   await fetch(`http://localhost:8000/register`,{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
