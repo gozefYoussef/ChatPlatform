@@ -1,4 +1,4 @@
-function httploginRequest({loginEmail,loginPassword}){
+export function httploginRequest({loginEmail,loginPassword}){
     fetch(`http://localhost:8000/login`,{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -9,7 +9,7 @@ function httploginRequest({loginEmail,loginPassword}){
     })
 }
 
-function httpRegisterRequest({registerEmail,registerPassword}){ 
+export function httpRegisterRequest({registerEmail,registerPassword}){ 
     fetch(`http://localhost:8000/register`,{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -20,7 +20,4 @@ function httpRegisterRequest({registerEmail,registerPassword}){
     })
 }
 
-export default {
-    httpRegisterRequest,
-    httploginRequest
-};
+

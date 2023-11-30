@@ -1,6 +1,6 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import {httploginRequest} from '../Hooks/request'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {httploginRequest} from '../Hooks/request';
 
 const Login = () => { 
     const [loginEmail, setLoginEmail] = useState('');
@@ -8,7 +8,7 @@ const Login = () => {
 
     const onEmailChange = (e) =>{setLoginEmail(e.target.value);}
     const onPasswordChange = (e) =>{setLoginPassword(e.target.value);}
-    const onSubmitClick = () =>(httploginRequest(loginEmail,loginPassword))
+    const onSubmitClick = () =>{httploginRequest(loginEmail,loginPassword)}
 
   return (
     <div className="flex justify-center items-center h-screen">
