@@ -1,11 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState,} from "react";
 import {httploginRequest} from '../Hooks/request';
+import { Link } from "react-router-dom";
 
 const Login = () => { 
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword,setLoginPassword] = useState('');
-
     const onEmailChange = (e) =>{setLoginEmail(e.target.value);}
     const onPasswordChange = (e) =>{setLoginPassword(e.target.value);}
     const onSubmitClick = () =>{httploginRequest(loginEmail,loginPassword)}
