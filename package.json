@@ -1,0 +1,20 @@
+{
+  "name": "chatshit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-frontend":"npm install --prefix frontend",
+    "install-backend":"npm install --prefix backend",
+    "install": "npm install-frontend && npm install-backend",
+    "backend":"npm run dev --prefix backend",
+    "frontend":"npm run dev --prefix frontend",
+    "dev": "npm run frontend & npm run backend",
+    "deploy": "npm run build --prefix frontend && npm run backend"
+  }
+  ,
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
