@@ -1,36 +1,18 @@
-import { useState } from 'react';
-import {Login,Dashboard,Register} from './pages';
-import Navigation from './components/navigation';
-
-const initialState = {
-  route: 'login',
-  isSignedIn: false,
-  user:{
-    id: '',
-    name: '',
-    email: '',
-    password: '',
-  }
-}
+import {Auth,Dashboard} from './pages';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [state,setState] = useState(initialState);
-
-  const onRouteChange = (route) => {
-    if(route === 'logout'){
-      setState(initialState);
-    } else if (route === 'dashboard'){
-      setState(prev => ({...prev, isSignedIn: true}))
-    }
-    setState(prev => ({...prev, route}));
-  }
-
-  const {isSignedIn,route} = state;
-
   return (
     <div>
-      <Navigation onRouteChange={onRouteChange} isSignedIn={isSignedIn}/>
-      {route === 'dashboard' ? <Dashboard/> : route === 'login' ? <Login/> : <Register/>}
+      <Router>
+        <div className=''>
+          <Routes>
+            <Route path="/auth" Component={Auth}/>
+            <Route path="/dashboard" Component={Dashboard}/>
+            <Route path="/" exact Component={Auth}/>
+          </Routes>
+        </div>
+      </Router>
     </div>
   )
 }
