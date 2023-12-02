@@ -19,7 +19,9 @@ app.get('/*',(req,res)=>{
     res.send('Welcome: server works well!!')
 })
 
-app.post('/login',(req,res)=>{
+
+
+app.post('/auth/login',(req,res)=>{
     const {email,password} = req.body
     const user = users.find((user) => user.email === email && user.password === password);
     if (user){
@@ -30,7 +32,7 @@ app.post('/login',(req,res)=>{
     }
     }
 )
-app.post('/register',(req,res)=>{
+app.post('/auth/register',(req,res)=>{
     const user = req.body;
     users.push(user)
     console.log(users);

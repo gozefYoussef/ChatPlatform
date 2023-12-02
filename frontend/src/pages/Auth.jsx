@@ -1,4 +1,5 @@
 import { useState } from "react";
+// import { httpRegisterRequest,httploginRequest } from "../Hooks/request";
 
 const initialState = {
     email: '',
@@ -21,14 +22,37 @@ export default function Auth(){
         setForm({...form, [e.target.name]: e.target.value})
     }
 
+    function registerRequest(form){ 
+        fetch(`http://localhost:8000/auth/register`,{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(form)
+        })
+    }
+
+    function loginRequest(form){
+        fetch(`http://localhost:8000/auth/login`,{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(form)
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        {isSignIn
+             ? registerRequest
+             : loginRequest
+            }
+        
     }
 
     return(
-        <div className="flex justify-center items-center h-screen">
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div className="flex justify-center items-center text-{24} font-bold"><h2 className="text-2xl font-bold mb-6">{isSignIn ? "Register" : "Login"}</h2></div>
+        <div className="flex justify-center items-center h-screen bg-slate-500">
+        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-12 pt-6 pb-8 mb-4 mx-6 bg-transparent-50">
+            <div className="flex justify-center items-center text-{24} font-bold">
+                <h2 className="text-2xl font-bold mb-6">{isSignIn ? "Register" : "Login"}</h2>
+            </div>
           {isSignIn && 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
@@ -41,6 +65,7 @@ export default function Auth(){
               name="email"
               placeholder="Username or Email Address"
               onChange={handleChange}
+              required
             />
           </div>
            }
@@ -55,6 +80,7 @@ export default function Auth(){
               name="username"
               placeholder="Username"
               onChange={handleChange}
+              required
             />
           </div>
           {isSignIn && 
@@ -98,6 +124,7 @@ export default function Auth(){
               placeholder="Password"
               name="password"
               onChange={handleChange}
+              required
             />
           </div>
           {isSignIn && 
@@ -112,6 +139,7 @@ export default function Auth(){
                 placeholder="Confirm Password"
                 name="confirmpassword"
                 onChange={handleChange}
+                required
                 />
             </div>
           }
@@ -123,8 +151,8 @@ export default function Auth(){
             >
               {isSignIn ? 'Register' : 'Login'}
             </button>
-            <p className="text-12">{isSignIn ? 'Already have account ' : 'create an account '}<span onClick={switchMode} className="font-bold text-{12} cursor-pointer">{isSignIn ? 'Login' : 'Register'}</span></p>
           </div>
+          <p>{isSignIn ? 'Already have account? ' : 'create an account? '}<span onClick={switchMode} className="font-bold text-16 cursor-pointer">{isSignIn ? 'Login' : 'Register'}</span></p>
         </form>
       </div>
     )
