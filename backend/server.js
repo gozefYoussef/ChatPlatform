@@ -19,8 +19,6 @@ app.get('/*',(req,res)=>{
     res.send('Welcome: server works well!!')
 })
 
-
-
 app.post('/auth/login',(req,res)=>{
     const {email,password} = req.body
     const user = users.find((user) => user.email === email && user.password === password);

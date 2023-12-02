@@ -13,7 +13,7 @@ const initialState = {
 export default function Auth(){
     const [isSignIn,setIsSignIn] = useState(false);
     const [form, setForm] = useState(initialState)
-    
+    const URL = "http://localhost:8000/auth";
     const switchMode = () => {
         setIsSignIn(prev => !prev)
     }
@@ -22,29 +22,17 @@ export default function Auth(){
         setForm({...form, [e.target.name]: e.target.value})
     }
 
-    function registerRequest(form){ 
-        fetch(`http://localhost:8000/auth/register`,{
+    function httpRequest(data){ 
+        fetch(`${URL}/${isSignIn ? 'register' : 'login'}`,{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(form)
-        })
-    }
-
-    function loginRequest(form){
-        fetch(`http://localhost:8000/auth/login`,{
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(form)
+            body: JSON.stringify(data)
         })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        {isSignIn
-             ? registerRequest
-             : loginRequest
-            }
-        
+        httpRequest(form) 
     }
 
     return(
