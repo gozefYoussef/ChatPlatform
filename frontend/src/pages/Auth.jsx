@@ -13,7 +13,7 @@ const initialState = {
 export default function Auth(){
     const [isSignIn,setIsSignIn] = useState(false);
     const [form, setForm] = useState(initialState)
-    const URL = "http://localhost:8000/auth";
+    
     const switchMode = () => {
         setIsSignIn(prev => !prev)
     }
@@ -22,19 +22,25 @@ export default function Auth(){
         setForm({...form, [e.target.name]: e.target.value})
     }
 
-    function httpRequest(data){ 
-        fetch(`${URL}/${isSignIn ? 'register' : 'login'}`,{
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        })
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        httpRequest(form) 
+        const URL = "http://localhost:8000/auth";
+       
+        const {email, username, phone, avatar,password,confirmpassword} = form;
+       
+        fetch(`${URL}/${isSignIn ? 'register' : 'login'}`,{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            email,
+            phone,
+            username,
+            avatar,
+            password,
+            confirmpassword, 
+        })
+    })
     }
-
     return(
         <div className="flex justify-center items-center h-screen bg-slate-500">
         <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-12 pt-6 pb-8 mb-4 mx-6 bg-transparent-50">

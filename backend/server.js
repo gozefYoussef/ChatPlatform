@@ -1,7 +1,12 @@
 const express = require('express');
-const cors = require('cors')
+const https = require('https')
+const cors = require('cors');
+const fs = require('fs');
 const app = express();
-const server = require('http').createServer(app);
+const server = require('https').createServer({
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+},app);
 
 app.use(cors({
     origin:'http://localhost:5173',
