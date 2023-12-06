@@ -24,22 +24,34 @@ export default function Auth(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const URL = "http://localhost:8000/auth";
+        const authURL = "https://localhost:8000/auth";
        
         const {email, username, phone, avatar,password,confirmpassword} = form;
        
-        fetch(`${URL}/${isSignIn ? 'register' : 'login'}`,{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-            email,
-            phone,
-            username,
-            avatar,
-            password,
-            confirmpassword, 
+        {isSignIn ?
+          fetch(`${authURL}/register`,{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email,
+                phone,
+                username,
+                avatar,
+                password,
+                confirmpassword, 
+            })
+        })   
+          : 
+          fetch(`${authURL}/login`,{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                username,
+                password,
+            })
         })
-    })
+           }
+        
     }
     return(
         <div className="flex justify-center items-center h-screen bg-slate-500">

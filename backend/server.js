@@ -2,6 +2,7 @@ const express = require('express');
 const https = require('https')
 const cors = require('cors');
 const fs = require('fs');
+const path = require('path');
 const app = express();
 const server = require('https').createServer({
     key: fs.readFileSync('key.pem'),
@@ -11,6 +12,9 @@ const server = require('https').createServer({
 app.use(cors({
     origin:'http://localhost:5173',
 }))
+
+app.use(express.static(path.join(__dirname,'public')));
+
 const PORT = process.env.PORT || 8000
 
 const users = [{
@@ -20,8 +24,15 @@ const users = [{
 
 app.use(express.json())
 
+// function isLoggedIn(req,res,next){
+//     const isLogged = true;
+//     if(!isLogged){
+//         return res.status(401).json({error:'you have to login'});
+//     } next();
+// }
+
 app.get('/*',(req,res)=>{
-    res.send('Welcome: server works well!!')
+    res.sendFile(path.join(__dirname,'public','index.html'))
 })
 
 app.post('/auth/login',(req,res)=>{
