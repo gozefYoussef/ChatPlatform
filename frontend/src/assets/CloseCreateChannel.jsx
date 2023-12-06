@@ -1,6 +1,4 @@
-import React from 'react';
-
-export const CloseCreateChannel = ({ setIsCreating, setIsEditing }) => (
+export const CloseCreateChannel = ( setIsCreating, setIsEditing ) => (
   <svg
     width='32'
     height='32'

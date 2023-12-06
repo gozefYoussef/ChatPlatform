@@ -1,6 +1,4 @@
-import React from 'react';
-
-export const LightningBolt = ({ giphyState, onCommandClick }) => (
+export const LightningBolt = ( giphyState, onCommandClick ) => (
   <div onClick={onCommandClick} style={{ display: 'flex' }}>
     <svg width='8' height='16' viewBox='0 0 8 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <path

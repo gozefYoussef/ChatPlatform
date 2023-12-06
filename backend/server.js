@@ -3,24 +3,16 @@ const https = require('https')
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const authRoute = require('./auth.route');
 const app = express();
-const server = require('https').createServer({
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-},app);
 
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin:'http://localhost:3000',
 }))
 
 app.use(express.static(path.join(__dirname,'public')));
-
+app.use('/auth',authRoute)
 const PORT = process.env.PORT || 8000
-
-const users = [{
-    email: 'gozefatef1999@yahoo.com',
-    password: '123'
-}];
 
 app.use(express.json())
 
@@ -33,26 +25,14 @@ app.use(express.json())
 
 app.get('/*',(req,res)=>{
     res.sendFile(path.join(__dirname,'public','index.html'))
-})
+    console.log(users)
+    })
 
-app.post('/auth/login',(req,res)=>{
-    const {email,password} = req.body
-    const user = users.find((user) => user.email === email && user.password === password);
-    if (user){
-        return res.status(200).json('Logged in successfully')
-    }
-    else {
-        return res.status(404).json('Wrong credentials')
-    }
-    }
-)
-app.post('/auth/register',(req,res)=>{
-    const user = req.body;
-    users.push(user)
-    console.log(users);
-    res.status(200).json('user added successfully')
-    }
-)
+
+const server = require('https').createServer({
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+},app);
 
 server.listen(PORT, ()=>{
     console.log(`server is listening on port : ${PORT}`)
