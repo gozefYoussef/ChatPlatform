@@ -1,22 +1,26 @@
-// import {createContext, useContext, useState } from 'react'
+import {createContext, useContext, useEffect, useState } from 'react'
 
-// const AuthContext = createContext();
+const AuthContext = createContext();
 
-// const AuthProvider = ({children}) => {
-//     const [loading,setLoading] = useState(true);
-//     const navigate = useNavigate();
+export const AuthProvider = ({children}) => {
+    const [loading,setLoading] = useState(true);
+    const [user,setUser] = useState(null);
 
-//     const contextData = {
+    useEffect(()=> {
+        setLoading(false);
+    },[])
 
-//     }
+    const contextData = {
+        user,
+    }
 
-//   return (
-//     <AuthContext.Provider value={contextData}>
-//         {loading ? <p>Loading...</p> : children}
-//     </AuthContext.Provider>
-//   )
-// }
+  return (
+    <AuthContext.Provider value={contextData}>
+        {loading ? <p>Loading...</p> : children}
+    </AuthContext.Provider>
+  )
+}
 
-// export const useAuth = () => {return useContext(AuthContext)}
+export const useAuth = () => {return useContext(AuthContext)}
 
-// export default AuthContext;
+export default AuthContext;

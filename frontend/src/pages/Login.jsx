@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext";
 
 const initialState = {
     username: '',
@@ -7,9 +8,18 @@ const initialState = {
 }
 
 const Login = () => {
+    const {user} = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+        if(user){
+            navigate('/');
+        }
+    },[])
     const [form, setForm] = useState(initialState)
     const handleChange = (e) =>{
     setForm({...form, [e.target.name]: e.target.value})
+    console.log(form)
     };
 
   return (
