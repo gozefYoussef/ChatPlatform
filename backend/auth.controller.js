@@ -23,7 +23,7 @@ const signUp = (req,res) => {
         res.status(200).json({ token, fullName, username, userId, hashedPassword, phoneNumber });
         }
         catch (error){
-            res.status(500).json({error: 'bad Request'})
+            console.log(error)
     }
 }
 
