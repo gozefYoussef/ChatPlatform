@@ -32,10 +32,33 @@ export const AuthProvider = ({children}) => {
             console.log(error)
         }
     }
+    const handleUserRegister = async (e,RegisterForm) =>{
+        e.preventDefault();
+        try {
+            const response = fetch('https://localhost:8000/login',{
+                method: 'POST',
+                headers: {"Content-Type" : "application/json"},
+                body: JSON.stringify({
+                    username: loginForm.username,
+                    password: loginForm.password
+                }),
+            });
+            if(response.ok){
+                const data = await response;
+                return setUser(data.user)
+            } else{
+                console.log('Credentials is invalid')
+            }
+
+        } catch(error) {
+            console.log(error)
+        }
+    }
 
     const contextData = {
         user,
         handleUserLogin,
+        handleUserRegister,
     }
 
   return (

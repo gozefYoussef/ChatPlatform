@@ -6,12 +6,12 @@ const handleRegister = (req, res, db, bcrypt) => {
     const hash = bcrypt.hashSync(password);
       db.transaction(trx => {
         trx.insert({
-          hash: hash,
+          password: hash,
           username: username
         })
         .into('login')
         .returning('username')
-        .then(loginEmail => {
+        .then(username => {
           return trx('users')
             .returning('*')
             .insert({
@@ -19,12 +19,14 @@ const handleRegister = (req, res, db, bcrypt) => {
               // loginEmail[0] --> this used to return the email
               // TO
               // loginEmail[0].email --> this now returns the email
-              email: loginEmail[0].email,
+              phone: phone,
+              fullname: fullname,
+              avatarurl: avatarURL,
+              password: hash,
               username: username,
-              joined: new Date()
             })
             .then(user => {
-              res.json(user[0]);
+              res.json({user: user[0], ok:true});
             })
         })
         .then(trx.commit)
