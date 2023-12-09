@@ -3,32 +3,41 @@ const https = require('https')
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
-const authRoute = require('./auth.route');
+const knex = require('knex');
+const bcrypt = require('bcrypt');
 const app = express();
+
+const { handleSignin } = require('./handleLogin');
+const { handleRegister } = require('./handleRegister');
+
+
+const db = knex({
+    client: 'pg',
+    connection: {
+        host: '172.17.0.2',
+        user: 'postgres',
+        password:'',
+        database: 'postgres',
+    }
+});
 
 app.use(cors({
     origin:'http://localhost:3000',
 }))
 
 app.use(express.static(path.join(__dirname,'public')));
-app.use('/auth',authRoute)
 const PORT = process.env.PORT || 8000
 
 app.use(express.json())
 
-// function isLoggedIn(req,res,next){
-//     const isLogged = true;
-//     if(!isLogged){
-//         return res.status(401).json({error:'you have to login'});
-//     } next();
-// }
 
 app.get('/*',(req,res)=>{
     res.sendFile(path.join(__dirname,'public','index.html'))
-    console.log(users)
     })
-
-
+    
+app.post('/Register',(req,res)=> handleRegister(req,res,db,bcrypt));
+app.post('/login', (req,res)=> handleSignin(req,res,db,bcrypt));
+    
 const server = require('https').createServer({
     key: fs.readFileSync('key.pem'),
     cert: fs.readFileSync('cert.pem')

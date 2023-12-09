@@ -8,23 +8,25 @@ const initialState = {
 }
 
 const Login = () => {
-    const {user} = useAuth();
+    const {user, handleUserLogin} = useAuth();
     const navigate = useNavigate();
 
     useEffect(()=> {
         if(user){
             navigate('/');
         }
-    },[])
+    },)
     const [form, setForm] = useState(initialState)
     const handleChange = (e) =>{
     setForm({...form, [e.target.name]: e.target.value})
     console.log(form)
     };
 
-  return (
+    const handleSubmit = (e) => handleUserLogin(e,form)
+  
+    return (
         <div className="flex items-center justify-center h-screen">
-            <div className="bg-gray-200 p-8 rounded shadow-md w-96">
+            <div className="bg-blue-500 p-8 rounded shadow-md w-96">
                 <p className="text-2xl font-bold mb-4">Login</p>
                 <form>
                     <div className="mb-4">
@@ -53,6 +55,7 @@ const Login = () => {
 
                     <div className="mb-4">
                         <button
+                            onClick={handleSubmit}
                             className="w-full px-4 py-2 text-white bg-blue-500 rounded-md focus:outline-none hover:bg-blue-600"
                         >
                             Login
