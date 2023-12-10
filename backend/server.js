@@ -12,9 +12,10 @@ const { handleRegister } = require('./handleRegister');
 
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use(cors({
-    origin:'http://localhost:3000',
-}))
+app.use(cors());
+{
+    // origin:'http://localhost:3000',
+}
 
 app.use(express.json())
 
@@ -23,13 +24,10 @@ const db = knex({
     connection: {
         host: '172.17.0.2',
         user: 'postgres',
-        password:'',
+        password:'mysecretpassword',
         database: 'postgres',
     }
 });
-
-
-
 
 app.post('/Register',(req,res)=> handleRegister(req,res,db,bcrypt));
 app.post('/login', (req,res)=> handleSignin(req,res,db,bcrypt));
