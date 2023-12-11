@@ -2,3 +2,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.bg{
+    background-image: url(./assets/techbg.jpg);
+    background-repeat: no-repeat;
+}
+body{
+    color: aliceblue;
+}
