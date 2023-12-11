@@ -23,7 +23,15 @@ const Register = () => {
             navigate('/');
         }
     },)
-    const handleSubmit = (e) => handleUserRegister(e,form);    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(form.password == form.confirmPassword){
+            handleUserRegister(e,form)
+        } else {
+            console.log("can't confirm password")
+
+        }
+    };    
     return (
         <div className="flex items-center justify-center h-screen bg mt-o">
             <div className="bg-blue-500 bg-opacity-25 px-6 py-4 rounded shadow-lg w-96">
