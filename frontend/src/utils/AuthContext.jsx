@@ -1,6 +1,7 @@
 import {createContext, useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 const AuthContext = createContext();
+import '../index.css'
 
 export const AuthProvider = ({children}) => {
     const [loading,setLoading] = useState(true);
@@ -54,6 +55,9 @@ export const AuthProvider = ({children}) => {
             })
             .then(response => response.json())
             .then(res => {data = res})
+            if(data.existed){
+                window.alert('User is exited on DB')
+            }
             if(data.ok){
                 console.log(data.ok)
                 setUser(data.user)
@@ -75,7 +79,11 @@ export const AuthProvider = ({children}) => {
 
   return (
     <AuthContext.Provider value={contextData}>
-        {loading ? <p>Loading...</p> : children}
+        {loading ? <div className="bg flex h-screen items-center justify-center">
+            <div className="lds-facebook"><div></div><div></div><div></div></div>
+        </div>
+
+                    : children}
     </AuthContext.Provider>
   )
 }
