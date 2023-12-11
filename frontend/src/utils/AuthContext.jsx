@@ -10,20 +10,20 @@ export const AuthProvider = ({children}) => {
         setLoading(false);
     },[])
 
-    const handleUserLogin = async (e,loginForm) =>{
+    const handleUserLogin = async (e,loginForm) => { 
         e.preventDefault();
+        let data = [];
         try {
-            const response = fetch('https://localhost:8000/login',{
+           await fetch('http://localhost:8000/login',{
                 method: 'POST',
                 headers: {"Content-Type" : "application/json"},
-                body: JSON.stringify({
-                    username: loginForm.username,
-                    password: loginForm.password
-                }),
-            });
-            if(response.ok){
-                const data = await response;
-                return setUser(data.user)
+                body: JSON.stringify(loginForm),
+            })
+            .then(response => response.json())
+            .then(res => {data = res})
+            if(data.ok == true){
+                console.log(data.ok)
+                setUser(data.user)
             } else{
                 console.log('Credentials is invalid')
             }
@@ -31,23 +31,29 @@ export const AuthProvider = ({children}) => {
         } catch(error) {
             console.log(error)
         }
-    }
+    };
     const handleUserRegister = async (e,RegisterForm) =>{
         e.preventDefault();
+        let data = [];
         try {
-            const response = fetch('https://localhost:8000/login',{
+            await fetch('http://localhost:8000/register',{
                 method: 'POST',
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify({
-                    username: loginForm.username,
-                    password: loginForm.password
+                    username: RegisterForm.username,
+                    password: RegisterForm.password,
+                    fullname: RegisterForm.fullName,
+                    phone: RegisterForm.phoneNumber,
+                    avatarURL: RegisterForm.avatarURL
                 }),
-            });
-            if(response.ok){
-                const data = await response;
-                return setUser(data.user)
+            })
+            .then(response => response.json())
+            .then(res => {data = res})
+            if(data.ok){
+                console.log(data.ok)
+                setUser(data.user)
             } else{
-                console.log('Credentials is invalid')
+                console.log('Server Error')
             }
 
         } catch(error) {

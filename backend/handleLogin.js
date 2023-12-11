@@ -29,7 +29,7 @@ const handleSignin = (req, res, db, bcrypt) => {
         const isValid = bcrypt.compareSync(password, users[0].password);
 
         if (isValid) {
-          res.json({ user: users[0]});
+          res.json({ user: users[0], ok:true});
         } else {
           res.status(400).json('Wrong credentials');
         }

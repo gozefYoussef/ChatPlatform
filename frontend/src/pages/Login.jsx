@@ -19,16 +19,15 @@ const Login = () => {
     const [form, setForm] = useState(initialState)
     const handleChange = (e) =>{
     setForm({...form, [e.target.name]: e.target.value})
-    console.log(form)
     };
 
-    const handleSubmit = (e) => handleUserLogin(e,form)
+    const handleSubmit = (e) => handleUserLogin(e, form)
   
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="bg-blue-500 p-8 rounded shadow-md w-96">
                 <p className="text-2xl font-bold mb-4">Login</p>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="username" className="block text-sm font-semibold text-gray-600">Username</label>
                         <input

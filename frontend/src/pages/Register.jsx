@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext";
 
 const initialState = {
     fullName: '',
@@ -11,10 +12,18 @@ const initialState = {
 }
 
 const Register = () => {
+    const navigate = useNavigate();
+    const {user,handleUserRegister} = useAuth()
     const [form, setForm] = useState(initialState)
     const handleChange = (e) =>{
     setForm({...form, [e.target.name]: e.target.value});
-    }    
+    }
+    useEffect(()=> {
+        if(user){
+            navigate('/');
+        }
+    },)
+    const handleSubmit = (e) => handleUserRegister(e,form);    
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="bg-red-500 p-8 rounded shadow-md w-96">
@@ -88,6 +97,7 @@ const Register = () => {
                         </div>
                         <div className="mb-4">
                             <button
+                                onClick={handleSubmit}
                                 className="w-full px-4 py-2 text-white bg-blue-500 rounded-md focus:outline-none hover:bg-blue-600"
                             >
                                 Register

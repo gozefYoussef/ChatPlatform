@@ -4,7 +4,6 @@ const handleRegister = (req, res, db, bcrypt) => {
       return res.status(400).json('incorrect form submission');
     }
     const hash = bcrypt.hashSync(password,10);
-    console.log(hash)
     db('users')
     .insert({
       fullname: fullname,
@@ -15,7 +14,7 @@ const handleRegister = (req, res, db, bcrypt) => {
     })
     .returning('*') // This ensures that the inserted user data is returned
     .then((user) => {
-      res.json(user[0]); // Sending the inserted user data as the response
+      res.json({user: user[0], ok:true}); // Sending the inserted user data as the response
     })
     .catch((err) => {
       console.error('Error during registration:', err);

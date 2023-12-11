@@ -12,10 +12,10 @@ const { handleRegister } = require('./handleRegister');
 
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use(cors());
-{
-    // origin:'http://localhost:3000',
-}
+app.use(cors({
+    origin:'http://localhost:5173',
+}));
+
 
 app.use(express.json())
 
@@ -28,7 +28,6 @@ const db = knex({
         database: 'postgres',
     }
 });
-
 app.post('/Register',(req,res)=> handleRegister(req,res,db,bcrypt));
 app.post('/login', (req,res)=> handleSignin(req,res,db,bcrypt));
 
@@ -36,10 +35,11 @@ app.get('/*',(req,res)=>{
     res.sendFile(path.join(__dirname,'public','index.html'))
     })
 
-const server = require('https').createServer({
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-},app);
+const server = require('http').createServer(app);
+// {
+//     key: fs.readFileSync('key.pem'),
+//     cert: fs.readFileSync('cert.pem')
+// },
 
 const PORT = process.env.PORT || 8000;
 
