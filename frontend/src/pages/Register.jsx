@@ -25,21 +25,23 @@ const Register = () => {
     },)
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(form.password == form.confirmPassword){
-            handleUserRegister(e,form)
+        if(!form.username || !form.fullName || !form.password || !form.phoneNumber){
+            window.alert('Check your input')
+        }
+        else if(form.password !== form.confirmPassword){
+            window.alert('Please Confirm Password')
         } else {
-            console.log("can't confirm password")
-
+            handleUserRegister(e,form)
         }
     };    
     return (
-        <div className="flex items-center justify-center h-screen bg mt-o">
-            <div className="bg-blue-500 bg-opacity-25 px-6 py-4 rounded shadow-lg w-96">
+        <div className="flex items-center justify-center h-screen bg mt-0">
+            <div className="bg-blue-500 bg-opacity-25 px-8 py-4 rounded shadow-lg w-96">
                     <div className="flex items-center justify-center">
                         <p className="text-2xl font-bold mb-2">Register</p>
                     </div>
                     <form>
-                        <div className="mb-2">
+                        <div className="mb-4">
                             <label htmlFor="fullName" className="block text-sm font-semibold text-white-600">Full Name</label>
                             <input
                                 name="fullName"

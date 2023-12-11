@@ -30,7 +30,7 @@ const Login = () => {
                     <p className="text-2xl font-bold mb-2">Login</p>
                 </div>
             <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
+                    <div className="mb-2">
                         <label htmlFor="username" className="block text-sm font-semibold text-white-600">Username</label>
                         <input
                             name="username"
