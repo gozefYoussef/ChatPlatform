@@ -10,6 +10,11 @@ export const AuthProvider = ({children}) => {
         setLoading(false);
     },[])
 
+    const handleUserLogout = async (e) =>{
+        e.preventDefault();
+        setUser(null);
+    }
+
     const handleUserLogin = async (e,loginForm) => { 
         e.preventDefault();
         let data = [];
@@ -65,6 +70,7 @@ export const AuthProvider = ({children}) => {
         user,
         handleUserLogin,
         handleUserRegister,
+        handleUserLogout
     }
 
   return (
