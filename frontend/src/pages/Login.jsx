@@ -48,7 +48,7 @@ const Login = () => {
                             name="password"
                             type="password"
                             placeholder="Password"
-                            className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:border-blue-500"
+                            className="w-full px-4 py-2 mt-2 border rounded-md text-black focus:outline-none focus:border-blue-500"
                             onChange={handleChange}
                             required
                         />
