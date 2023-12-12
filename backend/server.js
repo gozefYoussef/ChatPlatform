@@ -28,6 +28,14 @@ const db = knex({
         database: 'postgres',
     }
 });
+function checkDatabase(){
+    db.raw('select 1').then(()=>{
+        console.log('Database is connected');
+    }).catch((e)=> {
+        console.log('Database connection is failed');
+        // console.error(e);
+    })
+}
 app.post('/Register',(req,res)=> handleRegister(req,res,db,bcrypt));
 app.post('/login', (req,res)=> handleSignin(req,res,db,bcrypt));
 
@@ -40,9 +48,13 @@ const server = require('http').createServer(app);
 //     key: fs.readFileSync('key.pem'),
 //     cert: fs.readFileSync('cert.pem')
 // },
+function startServer(){
+    checkDatabase();
+    const PORT = process.env.PORT || 8000;
+    server.listen(PORT, ()=>{
+        console.log(`server is listening on port : ${PORT}`)
+    });
 
-const PORT = process.env.PORT || 8000;
+}
+startServer();
 
-server.listen(PORT, ()=>{
-    console.log(`server is listening on port : ${PORT}`)
-})
